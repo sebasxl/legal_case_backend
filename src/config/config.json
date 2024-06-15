@@ -1,0 +1,23 @@
+{
+  "development": {
+    "username": "root",
+    "password": "pepe123",
+    "database": "legal_case_management",
+    "host": "127.0.0.1",
+    "dialect": "mysql"
+  },
+  "test": {
+    "username": "root",
+    "password": "pepe123",
+    "database": "legal_case_management_test",
+    "host": "127.0.0.1",
+    "dialect": "mysql"
+  },
+  "production": {
+    "username": "root",
+    "password": "pepe123",
+    "database": "legal_case_management_prod",
+    "host": "127.0.0.1",
+    "dialect": "mysql"
+  }
+}

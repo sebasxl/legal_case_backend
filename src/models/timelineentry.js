@@ -1,16 +1,11 @@
 'use strict';
-const {
-  Model
-} = require('sequelize');
+const { Model } = require('sequelize');
 module.exports = (sequelize, DataTypes) => {
   class TimelineEntry extends Model {
-    /**
-     * Helper method for defining associations.
-     * This method is not a part of Sequelize lifecycle.
-     * The `models/index` file will call this method automatically.
-     */
     static associate(models) {
-      // define association here
+      TimelineEntry.belongsTo(models.Case, { foreignKey: 'caseId', as: 'case' });
+      TimelineEntry.belongsTo(models.User, { foreignKey: 'userId', as: 'user' });
+      TimelineEntry.belongsTo(models.Category, { foreignKey: 'categoryId', as: 'category' });
     }
   }
   TimelineEntry.init({

@@ -9,10 +9,17 @@ exports.createTimelineEntry = async (req, res) => {
   }
 };
 
+// Obtener todas las entradas de la línea temporal
 exports.getTimelineEntries = async (req, res) => {
   try {
-    const timelineEntries = await TimelineEntry.findAll();
-    res.status(200).json(timelineEntries);
+    const entries = await TimelineEntry.findAll({
+      include: [
+        { model: Case, as: 'case' },
+        { model: User, as: 'user' },
+        { model: Category, as: 'category' }
+      ]
+    });
+    res.status(200).json(entries);
   } catch (error) {
     res.status(500).json({ error: error.message });
   }
@@ -29,6 +36,43 @@ exports.getTimelineEntryById = async (req, res) => {
     res.status(500).json({ error: error.message });
   }
 };
+
+// Obtener entrada de la línea temporal por ID de caso
+exports.getTimelineEntriesByCaseId = async (req, res) => {
+  try {
+    const caseId = req.params.caseId;
+    const entries = await TimelineEntry.findAll({
+      where: { caseId },
+      include: [
+        { model: Case, as: 'case' },
+        { model: User, as: 'user' },
+        { model: Category, as: 'category' }
+      ]
+    });
+    res.status(200).json(entries);
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+};
+
+// Obtener entrada de la línea temporal por ID de usuario
+exports.getTimelineEntriesByUserId = async (req, res) => {
+  try {
+    const userId = req.params.userId;
+    const entries = await TimelineEntry.findAll({
+      where: { userId },
+      include: [
+        { model: Case, as: 'case' },
+        { model: User, as: 'user' },
+        { model: Category, as: 'category' }
+      ]
+    });
+    res.status(200).json(entries);
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+};
+
 
 exports.updateTimelineEntry = async (req, res) => {
   try {

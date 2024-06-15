@@ -1,4 +1,4 @@
-const { TimelineEntry } = require('../models');
+const { TimelineEntry, Case, User, Category } = require('../models');
 
 exports.createTimelineEntry = async (req, res) => {
   try {

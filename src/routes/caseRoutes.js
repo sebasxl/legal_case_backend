@@ -1,12 +1,21 @@
 const express = require('express');
 const router = express.Router();
 const caseController = require('../controllers/caseController');
-const authenticateToken = require('../middlewares/authMiddleware');
+const { authenticateToken, verifyTotalAdmin, verifyOrganizationAdmin, verifyLawyer } = require('../middlewares/authMiddleware');
 
-router.post('/', authenticateToken, caseController.createCase);
-router.get('/', authenticateToken, caseController.getCases);
-router.get('/:id', authenticateToken, caseController.getCaseById);
-router.put('/:id', authenticateToken, caseController.updateCase);
-router.delete('/:id', authenticateToken, caseController.deleteCase);
+// Crear un nuevo caso
+router.post('/', authenticateToken, verifyOrganizationAdmin, caseController.createCase);
+
+// Obtener todos los casos
+router.get('/', authenticateToken, verifyTotalAdmin, caseController.getCases);
+
+// Obtener caso por ID
+router.get('/:id', authenticateToken, verifyLawyer, caseController.getCaseById);
+
+// Actualizar un caso
+router.put('/:id', authenticateToken, verifyLawyer, caseController.updateCase);
+
+// Eliminar un caso
+router.delete('/:id', authenticateToken, verifyLawyer, caseController.deleteCase);
 
 module.exports = router;

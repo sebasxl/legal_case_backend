@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const roleController = require('../controllers/roleController');
-const authenticateToken = require('../middlewares/authMiddleware');
+const { authenticateToken, verifyTotalAdmin, verifyOrganizationAdmin, verifyLawyer } = require('../middlewares/authMiddleware');
 
 router.post('/', authenticateToken, roleController.createRole);
 router.get('/', authenticateToken, roleController.getRoles);

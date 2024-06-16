@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const attachmentController = require('../controllers/attachmentController');
-const authenticateToken = require('../middlewares/authMiddleware');
+const { authenticateToken, verifyTotalAdmin, verifyOrganizationAdmin, verifyLawyer } = require('../middlewares/authMiddleware');
 
 router.post('/', authenticateToken, attachmentController.createAttachment);
 router.get('/', authenticateToken, attachmentController.getAttachments);

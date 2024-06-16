@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const timelineEntryController = require('../controllers/timelineEntryController');
-const authenticateToken = require('../middlewares/authMiddleware');
+const { authenticateToken, verifyTotalAdmin, verifyOrganizationAdmin, verifyLawyer } = require('../middlewares/authMiddleware');
 
 // Crear una nueva entrada de la línea temporal
 router.post('/', authenticateToken, timelineEntryController.createTimelineEntry);

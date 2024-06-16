@@ -19,6 +19,8 @@ const caseRoutes = require('./src/routes/caseRoutes');
 const timelineEntryRoutes = require('./src/routes/timelineEntryRoutes');
 const statusRoutes = require('./src/routes/statusRoutes');
 const attachmentRoutes = require('./src/routes/attachmentRoutes');
+const listRoutes = require('./routes'); // Importa el middleware
+
 
 // Endpoints de Usuarios
 app.use('/api/users', userRoutes);
@@ -33,7 +35,8 @@ app.use('/api/cases', caseRoutes);
 app.use('/api/timelineentries', timelineEntryRoutes);
 app.use('/api/statuses', statusRoutes);
 app.use('/api/attachments', attachmentRoutes);
-
+// Middleware para listar rutas
+app.use(listRoutes(app));
 // Iniciar el servidor
 app.listen(port, () => {
   console.log(`Server is running on port ${port}`);
